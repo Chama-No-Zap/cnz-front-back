@@ -1,0 +1,6 @@
+[submodule "cnz-api"]
+	path = cnz-api
+	url = git@github.com:Chama-No-Zap/cnz-api.git
+[submodule "cnz-front-api"]
+	path = cnz-front-api
+	url = git@github.com:Chama-No-Zap/cnz-front-api.git
