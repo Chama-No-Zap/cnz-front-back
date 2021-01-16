@@ -1,0 +1,38 @@
+version: '3.2'
+
+services:
+  mongodb:
+    image: mongo:4.4.3
+    restart: always
+    networks:
+      - warlock-network
+  back-api:
+    build: cnz-api/.
+    ports:
+      - "9000:9000"
+    env_file:
+      - ./.env
+    depends_on:
+      - mongodb
+    volumes:
+      - ./:/usr/src
+    networks:
+      - warlock-network
+    command: sh -c "npm install && npm start"
+  front-api:
+    build: cnz-front-api/.
+    ports:
+      - '80:80'
+    env_file:
+      - ./.env
+    depends_on:
+      - back-api
+    restart: always
+    volumes:
+      - ./:/usr/src
+    networks:
+      - warlock-network
+    command: sh -c "npm install && npm start"
+networks:
+  warlock-network:
+    driver: bridge
